@@ -59,7 +59,7 @@ getChatMember($params);
 */
 
 $group_TestBot = -267586313;
-$group_NordEstLegit = -1001166072825;
+$group_NordEstLegit = -1001187994497;
 
 if($chatId === $group_TestBot or $chatId === $group_NordEstLegit) {
 
