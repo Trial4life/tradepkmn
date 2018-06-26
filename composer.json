@@ -1,0 +1,20 @@
+{
+    "name": "telegram-bot/TradePkMn-bot",
+    "type": "project",
+    "description": "Trade Pokémon bot",
+    "keywords": ["telegram", "bot", "Trade", "Pokémon"],
+    "license": "MIT",
+    "homepage": "https://tradepkmn.herokuapp.com/",
+    "support": {
+        "issues": "https://tradepkmn.herokuapp.com/",
+        "source": "https://tradepkmn.herokuapp.com/"
+    },
+    "authors": [
+        {
+            "name": "Trial4life",
+            "homepage": "https://tradepkmn.herokuapp.com/",
+            "role": "Developer"
+        }
+    ]
+
+}
