@@ -79,6 +79,7 @@ if(strpos($text, "/cerco") === 0 )
 			$result = mysqli_query($conn,$query);
 			$row = mysqli_fetch_assoc($result);
 			$pkmnID = $row['ID'];
+			$pokemon = $row['pokemon'];
 			$currUsers_C = $row['cerco'];
 
 			// REGISTRA UTENTE NEL DATABASE
@@ -103,6 +104,7 @@ if(strpos($text, "/cerco") === 0 )
 		$result = mysqli_query($conn,$query);
 		$row = mysqli_fetch_assoc($result);
 		$pkmnID = $row['ID'];
+		$pokemon = $row['pokemon'];
 		$currUsers_C = $row['cerco'];
 		$currUsers_S = $row['scambio'];
 		$currUsers_S_arr = array(); $currUsers_S_arr = explode('|', $currUsers_S);
@@ -149,6 +151,7 @@ elseif(strpos($text, "/scambio") === 0 )
 			$result = mysqli_query($conn,$query);
 			$row = mysqli_fetch_assoc($result);
 			$pkmnID = $row['ID'];
+			$pokemon = $row['pokemon'];
 			$currUsers_S = $row['scambio'];
 
 			// REGISTRA UTENTE NEL DATABASE
@@ -173,6 +176,7 @@ elseif(strpos($text, "/scambio") === 0 )
 		$result = mysqli_query($conn,$query);
 		$row = mysqli_fetch_assoc($result);
 		$pkmnID = $row['ID'];
+		$pokemon = $row['pokemon'];
 		$currUsers_C = $row['cerco'];
 		$currUsers_S = $row['scambio'];
 		$currUsers_C_arr = array(); $currUsers_C_arr = explode('|', $currUsers_C);
