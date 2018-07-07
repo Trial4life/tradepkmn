@@ -226,7 +226,7 @@ elseif(strpos($text, "/elenco ") === 0 )
 		$curr_PkMn = $row['pokemon'];
 		$currUsers_C = $row['cerco'];
 		$currUsers_S = $row['scambio'];
-		if ($counter >= 1484) {
+		if ($counter >= 1700) {
         break;
     	}
 		if (stristr($currUsers_C, $allenatore)) {
