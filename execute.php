@@ -167,7 +167,7 @@ elseif(strpos($text, "/scambio") === 0 )
 			$response = "Uno o più Pokémon non trovati. Riprovare.";
 		}
 		else {
-			$response = "Pokémon aggiunti dalla lista di @" . $username . ".";
+			$response = "Pokémon aggiunti alla lista di @" . $username . ".";
 		}
 	}
 	else {
