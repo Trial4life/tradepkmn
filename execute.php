@@ -63,7 +63,7 @@ getChatMember($params);
 */
 
 
-elseif($chatId === $group_TestBot or $chatId === $group_NordEstLegit) {
+if($chatId === $group_TestBot or $chatId === $group_NordEstLegit) {
 
 	if(strpos($text, "/cerco") === 0 )
 	{
