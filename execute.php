@@ -118,7 +118,7 @@ elseif($chatId === $group_TestBot or $chatId === $group_NordEstLegit) {
 
 			// INVIA MESSAGGIO
 			if ($pokemon == "") {
-				$response = "Digitare il nome di un Pokémon dopo il comando.";
+				$response = "Digitare il nome di un Pokémon dopo il comando.".json_encode($row);
 			}
 			elseif ($pkmnID == "") {
 				$response = "Pokémon *" . $pokemon . "* non trovato.";
