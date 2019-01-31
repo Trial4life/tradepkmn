@@ -28,7 +28,7 @@ $group_NordEstLegit = -1001187994497;
 // Create connection
 $conn = new mysqli("db4free.net", "trial4life", "16021993", "tradepkmn");
 // Check connection
-if ($conn->connect_error) {
+if (!$conn->connect_error) {
 	$response = "Connection failed: " . $conn->connect_error;
 }
 
