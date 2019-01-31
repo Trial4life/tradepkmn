@@ -22,8 +22,8 @@ $text = strtolower($text);
 
 header("Content-Type: application/json");
 $response = '';
-$group_TestBot = '-267586313';
-$group_NordEstLegit = '-1001187994497';
+$group_TestBot = -267586313;
+$group_NordEstLegit = -1001187994497;
 
 // Create connection
 $conn = new mysqli("db4free.net", "trial4life", "16021993", "tradepkmn");
@@ -102,7 +102,7 @@ if($chatId === $group_TestBot or $chatId === $group_NordEstLegit) {
 		}
 		else {
 			// CERCA NEL DATABASE
-			$query = "SELECT * FROM `$chatId` WHERE `pokemon` = '$pokemon'";
+			$query = "SELECT * FROM `pokeId` WHERE `pokemon` = '$pokemon'";
 			$result = mysqli_query($conn,$query);
 			$row = mysqli_fetch_assoc($result);
 			$pkmnID = $row['ID'];
