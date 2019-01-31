@@ -26,7 +26,7 @@ $group_TestBot = -267586313;
 $group_NordEstLegit = -1001187994497;
 
 // Create connection
-$conn = new mysqli("db4free.net", "trial4life", "16021993", "tradepkmn");
+$conn = new mysqli("db4free.net", "trial4life", "16021993", "tradepkmn");mysqli_set_charset($conn,"utf8");
 //$conn = new PDO("mysql:host=db4free.net;dbname=tradepkmn;charset=UTF8", 'trial4life', '16021993');
 // Check connection
 
@@ -63,7 +63,7 @@ getChatMember($params);
 */
 
 
-elseif($chatId === $group_TestBot or $chatId === $group_NordEstLegit) {
+if($chatId === $group_TestBot or $chatId === $group_NordEstLegit) {
 
 	if(strpos($text, "/cerco") === 0 )
 	{
