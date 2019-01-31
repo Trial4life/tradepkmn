@@ -22,8 +22,8 @@ $text = strtolower($text);
 
 header("Content-Type: application/json");
 $response = '';
-$group_TestBot = -267586313;
-$group_NordEstLegit = -1001187994497;
+$group_TestBot = '-267586313';
+$group_NordEstLegit = '-1001187994497';
 
 // Create connection
 $conn = new mysqli("db4free.net", "trial4life", "16021993", "tradepkmn");
@@ -118,7 +118,7 @@ if($chatId === $group_TestBot or $chatId === $group_NordEstLegit) {
 
 			// INVIA MESSAGGIO
 			if ($pokemon == "") {
-				$response = "Digitare il nome di un Pokémon dopo il comando.".json_encode($row);
+				$response = "Digitare il nome di un Pokémon dopo il comando.";
 			}
 			elseif ($pkmnID == "") {
 				$response = "Pokémon *" . $pokemon . "* non trovato.";
