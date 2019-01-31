@@ -71,7 +71,6 @@ getChatMember($params);
 
 
 if($chatId === $group_TestBot or $chatId === $group_NordEstLegit) {
-
 	if(strpos($text, "/cerco") === 0 )
 	{
 		$arr = explode('/cerco ', $text);
@@ -218,77 +217,104 @@ if($chatId === $group_TestBot or $chatId === $group_NordEstLegit) {
 	}
 
 	// ELENCO
-	elseif(strpos($text, "/elenco ") === 0 )
-	{
-	$arr = explode('/elenco ', $text);
-	$allenatore = $arr[1];
-	// $allenatore_name = FUNCTION($allenatore);
-	// $allenatore_Id = FUNCTION($allenatore);
+	elseif(strpos($text, "/elenco ") === 0 )	{
+		$arr = explode('/elenco ', $text);
+		$allenatore = $arr[1];
+		// $allenatore_name = FUNCTION($allenatore);
+		// $allenatore_Id = FUNCTION($allenatore);
 
-	// CERCA NEL DATABASE
-	$query = "SELECT * FROM `$chatId`";
-	$result = mysqli_query($conn,$query);
-	$pokemonFound_C = array();
-	$pokemonFound_S = array();
-	$counter = 0;
-	while ($row = mysqli_fetch_assoc($result)) {
-		$curr_PkMn = $row['pokemon'];
-		$currUsers_C = $row['cerco'];
-		$currUsers_S = $row['scambio'];
-		if ($counter >= 1700) {
-        break;
-    	}
-		if (stristr($currUsers_C, $allenatore)) {
-			array_push($pokemonFound_C,$curr_PkMn);
-		}
-		if (stristr($currUsers_S, $allenatore)) {
-			array_push($pokemonFound_S,$curr_PkMn);
-		}
-		$counter++;
-	}
-
-	// INVIA MESSAGGIO
-	//if ($pkmnID == "") { $response = "Allenatore *" . $pokemon . "* non trovato."; }
-	if (!empty($pokemonFound_C) or !empty($pokemonFound_S)) {
-		$response2 = "";
-		$response4 = "";
-		if (!empty($pokemonFound_S)) {
-			$response1 = "Pokémon scambiati da ".$allenatore.":";
-			$pokemonFound_S_num = sizeof($pokemonFound_S);
-			for ($i = 0; $i <= $pokemonFound_S_num-1; $i++) {  // OCCHIO AL -2
-				$response2 = $response2 . "\n− *".$pokemonFound_S[$i]."*";
+		// CERCA NEL DATABASE
+		$query = "SELECT * FROM `$chatId`";
+		$result = mysqli_query($conn,$query);
+		$pokemonFound_C = array();
+		$pokemonFound_S = array();
+		$counter = 0;
+		while ($row = mysqli_fetch_assoc($result)) {
+			$curr_PkMn = $row['pokemon'];
+			$currUsers_C = $row['cerco'];
+			$currUsers_S = $row['scambio'];
+			if ($counter >= 1700) {
+   	     break;
+   	 	}
+			if (stristr($currUsers_C, $allenatore)) {
+				array_push($pokemonFound_C,$curr_PkMn);
 			}
-		} else { $response1 = ""; $response2 = ""; }
+			if (stristr($currUsers_S, $allenatore)) {
+				array_push($pokemonFound_S,$curr_PkMn);
+			}
+			$counter++;
+		}
 
-		if (!empty($pokemonFound_C)) {
+		// INVIA MESSAGGIO
+		//if ($pkmnID == "") { $response = "Allenatore *" . $pokemon . "* non trovato."; }
+		if (!empty($pokemonFound_C) or !empty($pokemonFound_S)) {
+			$response2 = "";
+			$response4 = "";
 			if (!empty($pokemonFound_S)) {
-				$response3 = "\n------------------------------\nPokémon cercati da ".$allenatore.":";
-			} else { $response3 = "Pokémon cercati da ".$allenatore.":"; }
-			$pokemonFound_C_num = sizeof($pokemonFound_C);
-			for ($i = 0; $i <= $pokemonFound_C_num-1; $i++) {  // OCCHIO AL -2
-				$response4 = $response4 . "\n− *".$pokemonFound_C[$i]."*";
-			}
-		}
-		else { $response3 = ""; $response4 = ""; }
+				$response1 = "Pokémon scambiati da ".$allenatore.":";
+				$pokemonFound_S_num = sizeof($pokemonFound_S);
+				for ($i = 0; $i <= $pokemonFound_S_num-1; $i++) {  // OCCHIO AL -2
+					$response2 = $response2 . "\n− *".$pokemonFound_S[$i]."*";
+				}
+			} else { $response1 = ""; $response2 = ""; }
 
-		$response = $response1 . $response2 . $response3 . $response4;
-	} else { $response = $allenatore." non sta cercando/scambiando nessun Pokémon al momento."; }
+			if (!empty($pokemonFound_C)) {
+				if (!empty($pokemonFound_S)) {
+					$response3 = "\n------------------------------\nPokémon cercati da ".$allenatore.":";
+				} else { $response3 = "Pokémon cercati da ".$allenatore.":"; }
+				$pokemonFound_C_num = sizeof($pokemonFound_C);
+				for ($i = 0; $i <= $pokemonFound_C_num-1; $i++) {  // OCCHIO AL -2
+					$response4 = $response4 . "\n− *".$pokemonFound_C[$i]."*";
+				}
+			}
+			else { $response3 = ""; $response4 = ""; }
+
+			$response = $response1 . $response2 . $response3 . $response4;
+		} else { $response = $allenatore." non sta cercando/scambiando nessun Pokémon al momento."; }
 	}
 
 	// RIMOZIONE
-	elseif(strpos($text, "/cancella ") === 0 )
-	{
-	$arr = explode('/cancella ', $text);
-	$pokemon = str_replace('*',' shiny',ucfirst ($arr[1]));
+	elseif(strpos($text, "/cancella ") === 0 ) {
+		$arr = explode('/cancella ', $text);
+		$pokemon = str_replace('*',' shiny',ucfirst ($arr[1]));
 
-	if (stristr($pokemon, ",")) {
-		$pokemon_arr = explode(', ', $pokemon);
-		$pokemon_arr_size = sizeof($pokemon_arr);
-		$append_resp = array();
+		if (stristr($pokemon, ",")) {
+			$pokemon_arr = explode(', ', $pokemon);
+			$pokemon_arr_size = sizeof($pokemon_arr);
+			$append_resp = array();
 
-		for ($i = 0; $i <= $pokemon_arr_size-1; $i++) {
+			for ($i = 0; $i <= $pokemon_arr_size-1; $i++) {
+				// CERCA NEL DATABASE
+				$query = "SELECT * FROM `$chatId` WHERE `pokemon` = '$pokemon_arr[$i]'";
+				$result = mysqli_query($conn,$query);
+				$row = mysqli_fetch_assoc($result);
+				$pkmnID = $row['ID'];
+				$currUsers_C = $row['cerco'];
+				$currUsers_S = $row['scambio'];
+
+				// ELIMINA UTENTE CORRISPONDENTE AL POKÈMON DAL DATABASE
+				mysqli_query($conn,"UPDATE `$chatId` SET cerco = replace('$currUsers_C',concat('$userId','@','$firstname','@','$username','|'),'') WHERE ID = $pkmnID");
+				mysqli_query($conn,"UPDATE `$chatId` SET scambio = replace('$currUsers_S',concat('$userId','@','$firstname','@','$username','|'),'') WHERE ID = $pkmnID");
+
+				if ($pkmnID == "") { $err_resp = TRUE; } else { array_push($append_resp, $pokemon_arr[$i]); }
+			}
+
+			// INVIA MESSAGGIO
+			if ($err_resp == TRUE) {
+				$response = "Uno o più Pokémon non trovati. Riprovare.";
+			}
+			else {
+				$response1 = "";
+				for ($i = 0; $i <= sizeof($append_resp)-1; $i++) {
+					$response1 = $response1 . ucfirst($append_resp[$i]);
+					if ($i < sizeof($append_resp)-1) { $response1 = $response1 . ", "; } else {$response1 = $response1 . " "; }
+				}
+				$response = $response1 . "rimossi dalla lista di @" . $username . ".";
+			}
+		}
+		else {
 			// CERCA NEL DATABASE
-			$query = "SELECT * FROM `$chatId` WHERE `pokemon` = '$pokemon_arr[$i]'";
+			$query = "SELECT * FROM `$chatId` WHERE `pokemon` = '$pokemon'";
 			$result = mysqli_query($conn,$query);
 			$row = mysqli_fetch_assoc($result);
 			$pkmnID = $row['ID'];
@@ -299,38 +325,9 @@ if($chatId === $group_TestBot or $chatId === $group_NordEstLegit) {
 			mysqli_query($conn,"UPDATE `$chatId` SET cerco = replace('$currUsers_C',concat('$userId','@','$firstname','@','$username','|'),'') WHERE ID = $pkmnID");
 			mysqli_query($conn,"UPDATE `$chatId` SET scambio = replace('$currUsers_S',concat('$userId','@','$firstname','@','$username','|'),'') WHERE ID = $pkmnID");
 
-			if ($pkmnID == "") { $err_resp = TRUE; } else { array_push($append_resp, $pokemon_arr[$i]); }
+			// INVIA MESSAGGIO
+			if ($pkmnID == "") { $response = "Pokémon *" . $pokemon . "* non trovato."; } else { $response = "*".$pokemon . "* di [" . $firstname . "](tg://user?id=".$userId.") rimosso.";};
 		}
-
-		// INVIA MESSAGGIO
-		if ($err_resp == TRUE) {
-			$response = "Uno o più Pokémon non trovati. Riprovare.";
-		}
-		else {
-			$response1 = "";
-			for ($i = 0; $i <= sizeof($append_resp)-1; $i++) {
-				$response1 = $response1 . ucfirst($append_resp[$i]);
-				if ($i < sizeof($append_resp)-1) { $response1 = $response1 . ", "; } else {$response1 = $response1 . " "; }
-			}
-			$response = $response1 . "rimossi dalla lista di @" . $username . ".";
-		}
-	}
-	else {
-		// CERCA NEL DATABASE
-		$query = "SELECT * FROM `$chatId` WHERE `pokemon` = '$pokemon'";
-		$result = mysqli_query($conn,$query);
-		$row = mysqli_fetch_assoc($result);
-		$pkmnID = $row['ID'];
-		$currUsers_C = $row['cerco'];
-		$currUsers_S = $row['scambio'];
-
-		// ELIMINA UTENTE CORRISPONDENTE AL POKÈMON DAL DATABASE
-		mysqli_query($conn,"UPDATE `$chatId` SET cerco = replace('$currUsers_C',concat('$userId','@','$firstname','@','$username','|'),'') WHERE ID = $pkmnID");
-		mysqli_query($conn,"UPDATE `$chatId` SET scambio = replace('$currUsers_S',concat('$userId','@','$firstname','@','$username','|'),'') WHERE ID = $pkmnID");
-
-		// INVIA MESSAGGIO
-		if ($pkmnID == "") { $response = "Pokémon *" . $pokemon . "* non trovato."; } else { $response = "*".$pokemon . "* di [" . $firstname . "](tg://user?id=".$userId.") rimosso.";};
-	}
 	}
 	/*
 	elseif($text == "/rimuovitutto")
@@ -358,39 +355,36 @@ if($chatId === $group_TestBot or $chatId === $group_NordEstLegit) {
 	$response = "Pokémon di [" . $firstname . "](tg://user?id=".$userId.") rimossi.";
 	}*/
 
-	elseif(strpos($text, "/reset ") === 0)
-	{
-	if ($username == "Trial4life") {
-		$arr = explode('/reset ', $text);
-		$pokemon = str_replace('*',' shiny',ucfirst ($arr[1]));
+	elseif(strpos($text, "/reset ") === 0)	{
+		if ($username == "Trial4life") {
+			$arr = explode('/reset ', $text);
+			$pokemon = str_replace('*',' shiny',ucfirst ($arr[1]));
 
-		// CERCA NEL DATABASE
-		$query = "SELECT * FROM `$chatId` WHERE `pokemon` = '$pokemon'";
-		$result = mysqli_query($conn,$query);
-		$row = mysqli_fetch_assoc($result);
-		$pkmnID = $row['ID'];
+			// CERCA NEL DATABASE
+			$query = "SELECT * FROM `$chatId` WHERE `pokemon` = '$pokemon'";
+			$result = mysqli_query($conn,$query);
+			$row = mysqli_fetch_assoc($result);
+			$pkmnID = $row['ID'];
 
-		// RESETTA POKÈMON DEL DATABASE
-		mysqli_query($conn,"UPDATE `$chatId` SET cerco = '' WHERE ID = $pkmnID");
-		mysqli_query($conn,"UPDATE `$chatId` SET scambio = '' WHERE ID = $pkmnID");
+			// RESETTA POKÈMON DEL DATABASE
+			mysqli_query($conn,"UPDATE `$chatId` SET cerco = '' WHERE ID = $pkmnID");
+			mysqli_query($conn,"UPDATE `$chatId` SET scambio = '' WHERE ID = $pkmnID");
 
-		// INVIA MESSAGGIO
-		if ($pkmnID == "") { $response = "Pokémon *" . $pokemon . "* non trovato."; } else { $response = "*".$pokemon . "* resettato.";};
-	} else { $response = "Non sei autorizzato a usare questo comando."; }
+			// INVIA MESSAGGIO
+			if ($pkmnID == "") { $response = "Pokémon *" . $pokemon . "* non trovato."; } else { $response = "*".$pokemon . "* resettato.";};
+		} else { $response = "Non sei autorizzato a usare questo comando."; }
 	}
 
-	elseif($text == "/resetall")
-	{
-	if ($username == "Trial4life") {
-		// RESETTA TUTTI I POKÈMON DEL DATABASE	// ELIMINA UTENTE DAL DATABASE
-		mysqli_query($conn,"UPDATE `$chatId` SET cerco = ''");
-		mysqli_query($conn,"UPDATE `$chatId` SET scambio = ''");
+	elseif($text == "/resetall") {
+		if ($username == "Trial4life") {
+			// RESETTA TUTTI I POKÈMON DEL DATABASE	// ELIMINA UTENTE DAL DATABASE
+			mysqli_query($conn,"UPDATE `$chatId` SET cerco = ''");
+			mysqli_query($conn,"UPDATE `$chatId` SET scambio = ''");
 
-		// INVIA MESSAGGIO
-		$response = "*Database resettato!*";
-	} else { $response = "Non sei autorizzato a usare questo comando."; }
+			// INVIA MESSAGGIO
+			$response = "*Database resettato!*";
+		} else { $response = "Non sei autorizzato a usare questo comando."; }
 	}
-
 }
 
 else {
