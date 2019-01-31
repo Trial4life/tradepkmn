@@ -24,7 +24,7 @@ header("Content-Type: application/json");
 $response = '';
 
 // Create connection
-$conn = new mysqli("sql7.freemysqlhosting.net:3306/sql7243921", "sql7243921", "4ezgelH6xq", "sql7243921");
+$conn = new mysqli("db4free.net", "trial4life", "16021993", "tradepkmn");
 // Check connection
 if ($conn->connect_error) {
 	$error = "Connection failed: " . $conn->connect_error;
