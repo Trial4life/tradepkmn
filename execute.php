@@ -116,7 +116,7 @@ if(strpos($text, "/cerco") === 0 )
 
 		// INVIA MESSAGGIO
 		if ($pokemon == "") {
-			$response = "Digitare il nome di un Pokémon dopo il comando.";
+			$response =  "Connection failed: " . $conn->connect_error;
 		}
 		elseif ($pkmnID == "") {
 			$response = "Pokémon *" . $pokemon . "* non trovato.";
