@@ -101,7 +101,7 @@ if(true) {
 		}
 		else {
 			// CERCA NEL DATABASE
-			$query = "SELECT * FROM `$chatId` WHERE `pokemon` = '$pokemon'";
+			$query = "SELECT * FROM `-267586313` WHERE `pokemon` = '$pokemon'";
 			$result = mysqli_query($conn,$query);
 			$row = mysqli_fetch_assoc($result);
 			$pkmnID = $row['ID'];
@@ -112,7 +112,7 @@ if(true) {
 
 			// REGISTRA UTENTE NEL DATABASE
 			if (!stristr($currUsers_C, $username)) {
-				mysqli_query($conn,"UPDATE `$chatId` SET cerco = concat('$currUsers_C', '$userId','@','$firstname','@','$username','|') WHERE ID = $pkmnID");
+				mysqli_query($conn,"UPDATE `-267586313` SET cerco = concat('$currUsers_C', '$userId','@','$firstname','@','$username','|') WHERE ID = $pkmnID");
 			}
 
 			// INVIA MESSAGGIO
@@ -149,7 +149,7 @@ if(true) {
 
 		for ($i = 0; $i <= $pokemon_arr_size-1; $i++) {
 			// CERCA NEL DATABASE
-			$query = "SELECT * FROM `$chatId` WHERE `pokemon` = '$pokemon_arr[$i]'";
+			$query = "SELECT * FROM `-267586313` WHERE `pokemon` = '$pokemon_arr[$i]'";
 			$result = mysqli_query($conn,$query);
 			$row = mysqli_fetch_assoc($result);
 			$pkmnID = $row['ID'];
@@ -158,7 +158,7 @@ if(true) {
 
 			// REGISTRA UTENTE NEL DATABASE
 			if (!stristr($currUsers_S, $username)) {
-				mysqli_query($conn,"UPDATE `$chatId` SET scambio = concat('$currUsers_S', '$userId','@','$firstname','@','$username','|') WHERE ID = $pkmnID");
+				mysqli_query($conn,"UPDATE `-267586313` SET scambio = concat('$currUsers_S', '$userId','@','$firstname','@','$username','|') WHERE ID = $pkmnID");
 
 			if ($pkmnID == "") { $err_resp = TRUE; } else { array_push($append_resp, $pokemon_arr[$i]); }
 			}
