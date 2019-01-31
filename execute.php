@@ -32,6 +32,11 @@ $conn = new mysqli("db4free.net", "trial4life", "16021993", "tradepkmn"); mysqli
 
 if ($conn->connect_error) {
 	$response = "Connection failed: " . $conn->connect_error;
+	$data = [
+	  	'chat_id' => $chatId,
+	  	'text' => $response,
+	];
+	$response = file_get_contents("https://api.telegram.org/bot$apiToken/sendMessage?" . http_build_query($data) );
 }
 
 /*
