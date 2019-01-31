@@ -26,7 +26,8 @@ $group_TestBot = -267586313;
 $group_NordEstLegit = -1001187994497;
 
 // Create connection
-$conn = new mysqli("db4free.net", "trial4life", "16021993", "tradepkmn");
+// $conn = new mysqli("db4free.net", "trial4life", "16021993", "tradepkmn");
+$conn = new PDO("mysql:host=db4free.net;dbname=tradepkmn;charset=UTF8", 'trial4life', '16021993');
 // Check connection
 
 if ($conn->connect_error) {
