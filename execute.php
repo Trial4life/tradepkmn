@@ -21,7 +21,7 @@ $text = trim($text);
 $text = strtolower($text);
 
 header("Content-Type: application/json");
-$apiToken = "689487990:AAGhqhcsalt0mXYRnUqFro9ECNxPuOOVPZc";
+$apiToken = "426704509:AAFGRQmqKWz9ywUj--pkYHA0CC1d_SJ3qPU";
 $response = '';
 $group_TestBot = -267586313;
 $group_NordEstLegit = -1001187994497;
