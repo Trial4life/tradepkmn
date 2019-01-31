@@ -112,13 +112,11 @@ if($chatId === $group_TestBot or $chatId === $group_NordEstLegit) {
 			$currUsers_S_arr = array(); $currUsers_S_arr = explode('|', $currUsers_S);
 
 			// REGISTRA UTENTE NEL DATABASE
-			if (!stristr($currUsers_C, $username)) {
-				mysqli_query($conn,"UPDATE `$chatId` SET cerco = concat('$currUsers_C', '$userId','@','$firstname','@','$username','|') WHERE ID = $pkmnID");
-			}
+
 
 			// INVIA MESSAGGIO
 			if ($pokemon == "") {
-				$response = "Digitare il nome di un Pokémon dopo il comando.";
+				$response = "Digitare il nome di un Pokémon dopo il comando.".$pokemon;
 			}
 			elseif ($pkmnID == "") {
 				$response = "Pokémon *" . $pokemon . "* non trovato.";
