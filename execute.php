@@ -102,7 +102,7 @@ if($chatId === $group_TestBot or $chatId === $group_NordEstLegit) {
 		}
 		else {
 			// CERCA NEL DATABASE
-			$query = "SELECT * FROM `pokeId` WHERE `pokemon` = '$pokemon'";
+			$query = "SELECT * FROM `pokeid` WHERE `pokemon` = '$pokemon'";
 			$result = mysqli_query($conn,$query);
 			$row = mysqli_fetch_assoc($result);
 			$pkmnID = $row['ID'];
