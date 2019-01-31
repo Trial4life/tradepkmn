@@ -22,12 +22,14 @@ $text = strtolower($text);
 
 header("Content-Type: application/json");
 $response = '';
+$group_TestBot = -267586313;
+$group_NordEstLegit = -1001187994497;
 
 // Create connection
 $conn = new mysqli("db4free.net", "trial4life", "16021993", "tradepkmn");
 // Check connection
 if ($conn->connect_error) {
-	$error = "Connection failed: " . $conn->connect_error;
+	$response = "Connection failed: " . $conn->connect_error;
 }
 
 /*
@@ -58,13 +60,11 @@ getChatMember($params);
 //$test = $output['ChatMember']['user']['id'];
 */
 
-$group_TestBot = -267586313;
-$group_NordEstLegit = -1001187994497;
 
-if($chatId === $group_TestBot or $chatId === $group_NordEstLegit) {
+elseif($chatId === $group_TestBot or $chatId === $group_NordEstLegit) {
 
-if(strpos($text, "/cerco") === 0 )
-{
+	if(strpos($text, "/cerco") === 0 )
+	{
 	$arr = explode('/cerco ', $text);
 	$pokemon = str_replace('*',' shiny',ucfirst ($arr[1]));
 
@@ -116,7 +116,7 @@ if(strpos($text, "/cerco") === 0 )
 
 		// INVIA MESSAGGIO
 		if ($pokemon == "") {
-			$response = "Connection failed: " . $conn->connect_error;
+			$response = "Digitare il nome di un Pokémon dopo il comando.";
 		}
 		elseif ($pkmnID == "") {
 			$response = "Pokémon *" . $pokemon . "* non trovato.";
@@ -134,9 +134,9 @@ if(strpos($text, "/cerco") === 0 )
 			$response = $response1 . $response2;
 		};
 	}
-}
-elseif(strpos($text, "/scambio") === 0 )
-{
+	}
+	elseif(strpos($text, "/scambio") === 0 )
+	{
 	$arr = explode('/scambio ', $text);
 	$pokemon = str_replace('*',' shiny',ucfirst ($arr[1]));
 
@@ -205,12 +205,11 @@ elseif(strpos($text, "/scambio") === 0 )
 			$response = $response1 . $response2;
 		}
 	}
-}
+	}
 
-
-// ELENCO
-elseif(strpos($text, "/elenco ") === 0 )
-{
+	// ELENCO
+	elseif(strpos($text, "/elenco ") === 0 )
+	{
 	$arr = explode('/elenco ', $text);
 	$allenatore = $arr[1];
 	// $allenatore_name = FUNCTION($allenatore);
@@ -264,16 +263,11 @@ elseif(strpos($text, "/elenco ") === 0 )
 
 		$response = $response1 . $response2 . $response3 . $response4;
 	} else { $response = $allenatore." non sta cercando/scambiando nessun Pokémon al momento."; }
+	}
 
-}
-
-
-
-
-// RIMOZIONE
-
-elseif(strpos($text, "/cancella ") === 0 )
-{
+	// RIMOZIONE
+	elseif(strpos($text, "/cancella ") === 0 )
+	{
 	$arr = explode('/cancella ', $text);
 	$pokemon = str_replace('*',' shiny',ucfirst ($arr[1]));
 
@@ -327,10 +321,10 @@ elseif(strpos($text, "/cancella ") === 0 )
 		// INVIA MESSAGGIO
 		if ($pkmnID == "") { $response = "Pokémon *" . $pokemon . "* non trovato."; } else { $response = "*".$pokemon . "* di [" . $firstname . "](tg://user?id=".$userId.") rimosso.";};
 	}
-}
-/*
-elseif($text == "/rimuovitutto")
-{
+	}
+	/*
+	elseif($text == "/rimuovitutto")
+	{
 
 	// ELIMINA UTENTE DAL DATABASE
 	$query = "SELECT * FROM `$chatId`";
@@ -352,10 +346,10 @@ elseif($text == "/rimuovitutto")
 
 	// INVIA MESSAGGIO
 	$response = "Pokémon di [" . $firstname . "](tg://user?id=".$userId.") rimossi.";
+	}*/
 
-}*/
-elseif(strpos($text, "/reset ") === 0)
-{
+	elseif(strpos($text, "/reset ") === 0)
+	{
 	if ($username == "Trial4life") {
 		$arr = explode('/reset ', $text);
 		$pokemon = str_replace('*',' shiny',ucfirst ($arr[1]));
@@ -373,9 +367,10 @@ elseif(strpos($text, "/reset ") === 0)
 		// INVIA MESSAGGIO
 		if ($pkmnID == "") { $response = "Pokémon *" . $pokemon . "* non trovato."; } else { $response = "*".$pokemon . "* resettato.";};
 	} else { $response = "Non sei autorizzato a usare questo comando."; }
-}
-elseif($text == "/resetall")
-{
+	}
+
+	elseif($text == "/resetall")
+	{
 	if ($username == "Trial4life") {
 		// RESETTA TUTTI I POKÈMON DEL DATABASE	// ELIMINA UTENTE DAL DATABASE
 		mysqli_query($conn,"UPDATE `$chatId` SET cerco = ''");
@@ -384,14 +379,16 @@ elseif($text == "/resetall")
 		// INVIA MESSAGGIO
 		$response = "*Database resettato!*";
 	} else { $response = "Non sei autorizzato a usare questo comando."; }
+	}
+
 }
+
+else {
+	$response = "Gruppo non autorizzato. Contattare l'admin.";
+};
 
 //close the mySQL connection
 $conn->close();
-
-} else { $response = "Gruppo non autorizzato. Contattare l'admin."; };
-
-
 
 $parameters = array('chat_id' => $chatId, "text" => $response, "parse_mode" => "markdown");
 $parameters["method"] = "sendMessage";
