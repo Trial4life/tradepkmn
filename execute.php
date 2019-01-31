@@ -28,11 +28,10 @@ $group_NordEstLegit = -1001187994497;
 // Create connection
 $conn = new mysqli("db4free.net", "trial4life", "16021993", "tradepkmn");
 // Check connection
-/*
+
 if ($conn->connect_error) {
 	$response = "Connection failed: " . $conn->connect_error;
 }
-*/
 
 /*
 // Create connection
@@ -63,7 +62,7 @@ getChatMember($params);
 */
 
 
-if($chatId === $group_TestBot or $chatId === $group_NordEstLegit) {
+elseif($chatId === $group_TestBot or $chatId === $group_NordEstLegit) {
 
 	if(strpos($text, "/cerco") === 0 )
 	{
@@ -102,7 +101,7 @@ if($chatId === $group_TestBot or $chatId === $group_NordEstLegit) {
 		}
 		else {
 			// CERCA NEL DATABASE
-			$query = "SELECT * FROM `pokeid` WHERE `pokemon` = '$pokemon'";
+			$query = "SELECT * FROM `$chatId` WHERE `pokemon` = '$pokemon'";
 			$result = mysqli_query($conn,$query);
 			$row = mysqli_fetch_assoc($result);
 			$pkmnID = $row['ID'];
@@ -112,11 +111,13 @@ if($chatId === $group_TestBot or $chatId === $group_NordEstLegit) {
 			$currUsers_S_arr = array(); $currUsers_S_arr = explode('|', $currUsers_S);
 
 			// REGISTRA UTENTE NEL DATABASE
-
+			if (!stristr($currUsers_C, $username)) {
+				mysqli_query($conn,"UPDATE `$chatId` SET cerco = concat('$currUsers_C', '$userId','@','$firstname','@','$username','|') WHERE ID = $pkmnID");
+			}
 
 			// INVIA MESSAGGIO
 			if ($pokemon == "") {
-				$response = "Digitare il nome di un Pokémon dopo il comando.".$pokemon;
+				$response = "Digitare il nome di un Pokémon dopo il comando.";
 			}
 			elseif ($pkmnID == "") {
 				$response = "Pokémon *" . $pokemon . "* non trovato.";
